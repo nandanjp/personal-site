@@ -7,14 +7,11 @@ const nextConfig: NextConfig = {
       loader: "custom",
       loaderFile: "./lib/netlify-image-loader.ts",
     }),
+    // Must stay in step with remote_images in netlify.toml.
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "photos.nandan-hl.dev",
-      },
-      {
-        protocol: "https",
-        hostname: "i.scdn.co",
+        hostname: "personal-api.nandan-hl.dev",
       },
       {
         protocol: "https",
