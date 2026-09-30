@@ -63,7 +63,7 @@ export function PhotoGallery() {
     const [, startTransition] = useTransition()
     useEffect(() => { startTransition(() => setMounted(true)) }, [])
 
-    const { data, isPending } = useQuery({
+    const { data, isPending, isError } = useQuery({
         queryKey: ['photos'],
         queryFn: () => api.photos.list(),
         refetchOnWindowFocus: false
@@ -73,6 +73,15 @@ export function PhotoGallery() {
     if (!mounted || isPending) return <PhotoGallerySkeleton />
 
     const photos = data?.photos ?? []
+
+    if (isError) {
+        return (
+            <div className="flex flex-col items-center gap-2 py-16">
+                <EmptyHeading>Couldn&apos;t load photos.</EmptyHeading>
+                <EmptyBody>Try again shortly.</EmptyBody>
+            </div>
+        )
+    }
 
     if (photos.length === 0) {
         return (

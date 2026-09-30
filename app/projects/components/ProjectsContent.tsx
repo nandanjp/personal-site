@@ -26,11 +26,11 @@ function ProjectsContentSkeleton() {
 }
 
 export function ProjectsContent() {
-    const { data: stats, isPending: statsPending } = useQuery({
+    const { data: stats, isPending: statsPending, isError: statsError } = useQuery({
         queryKey: ['github-stats'],
         queryFn: () => api.github.stats()
     })
-    const { data: reposData, isPending: reposPending } = useQuery({
+    const { data: reposData, isPending: reposPending, isError: reposError } = useQuery({
         queryKey: ['github-repos'],
         queryFn: () => api.github.repos()
     })
@@ -39,10 +39,21 @@ export function ProjectsContent() {
 
     const repos = reposData?.repos ?? []
 
+    // Either failing means the page would be partly blank with no explanation,
+    // so both are reported rather than rendering half of it.
+    if (statsError || reposError) {
+        return (
+            <div className="flex flex-col items-center gap-2 py-16">
+                <EmptyHeading>Couldn&apos;t load GitHub data.</EmptyHeading>
+                <EmptyBody>Try again shortly.</EmptyBody>
+            </div>
+        )
+    }
+
     if (!stats && repos.length === 0) {
         return (
             <div className="flex flex-col items-center gap-2 py-16">
-                <EmptyHeading>GitHub data unavailable.</EmptyHeading>
+                <EmptyHeading>No projects yet.</EmptyHeading>
                 <EmptyBody>Check back soon.</EmptyBody>
             </div>
         )
