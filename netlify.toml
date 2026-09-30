@@ -7,11 +7,12 @@ NODE_VERSION = "20"
 NEXT_PUBLIC_PERSONAL_API_URL = "https://personal-api.nandan-hl.dev"
 NEXT_PUBLIC_NETLIFY = "true"
 
+# Hosts the Image CDN is allowed to fetch from. It resolves these server-side,
+# so anything absent here is rejected rather than proxied.
 [images]
 remote_images = [
     "https://avatars\\.githubusercontent\\.com/.*",
-    "https://i\\.scdn\\.co/.*",
-    "https://photos\\.nandan-hl\\.dev/.*"
+    "https://personal-api\\.nandan-hl\\.dev/.*"
 ]
 
 [[headers]]

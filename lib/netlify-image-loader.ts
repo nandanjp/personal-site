@@ -6,7 +6,7 @@ export function netlifyImageSrc(src: string, width: number, quality = 75): strin
     return `/.netlify/images?${params}`
 }
 
-// Returns a thumbnail URL sized to ~20px wide at q=5 — should be well under 1 kb.
+// Returns a thumbnail URL sized to ~20px wide at q=5 to keep under 1 kb.
 // Used as the progressive-load placeholder in BlurImage.
 export function netlifyThumbnailSrc(src: string): string {
     if (process.env.NEXT_PUBLIC_NETLIFY !== 'true') return src

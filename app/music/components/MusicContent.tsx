@@ -43,7 +43,7 @@ export function TrackGridSkeleton() {
 }
 
 export function MusicContent() {
-    const { data, isPending } = useQuery({
+    const { data, isPending, isError } = useQuery({
         queryKey: ['music'],
         queryFn: () => api.music.list()
     })
@@ -51,6 +51,17 @@ export function MusicContent() {
     const tracks = data?.tracks ?? []
 
     if (isPending) return <TrackGridSkeleton />
+
+    // Distinct from the empty state below: a failed request is not an empty
+    // catalogue, and saying so would hide an outage.
+    if (isError) {
+        return (
+            <div className="flex flex-col items-center gap-2 py-16">
+                <EmptyHeading>Couldn&apos;t load music.</EmptyHeading>
+                <EmptyBody>Try again shortly.</EmptyBody>
+            </div>
+        )
+    }
 
     if (tracks.length === 0) {
         return (
