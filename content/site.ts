@@ -7,7 +7,7 @@ export const SITE = {
         githubUrl: 'https://github.com/nandanjp',
         twitterUrl: null as string | null,
         profileImageUrl:
-            'https://photos.nandan-hl.dev/personal-photos/9cc1e443-f058-46f8-b131-ddc37e75ed32.jpg' as
+            'https://personal-api.nandan-hl.dev/photos/1f9d6f7683799bbdc7b0b70585dfef1f.jpg' as
                 | string
                 | null
     },
